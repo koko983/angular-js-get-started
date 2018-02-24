@@ -1,35 +1,19 @@
-// Code goes here
+(function () {
+  var app = angular.module("githubViewer", []);
 
-(function() {
-
-  var createWorker = function() {
-
-    var workCount = 0;
-
-    var task1 = function() {
-      workCount += 1;
-      console.log("task1 " + workCount);
+  var controllerCallBack = function ($scope, $http) {
+    var onUserComplete = function (response) {
+      $scope.user = response.data;
+    };
+    var onError = function (reason) {
+      $scope.error = "Could not fetch the user";
     };
 
-    var task2 = function() {
-      workCount += 1;
-      console.log("task2 " + workCount);
-    };
+    $http.get("https://api.github.com/users/robconery")
+      .then(onUserComplete, onError);
 
-
-    return {
-      job1: task1,
-      job2: task2
-    };
-
+    $scope.message = "Hello, Angular!";
   };
 
-
-  var worker = createWorker();
-
-
-  worker.job1();
-  worker.job2();
-  worker.job2();
-  worker.job2();
+  app.controller("MainController", controllerCallBack);
 }());
