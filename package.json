@@ -1,0 +1,16 @@
+{
+  "name": "current",
+  "version": "1.0.0",
+  "description": "Angular app for the Scott Allen PluralSight's course (introduction to AngularJs)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Hello, Hello, Hello!\" && exit 0",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "connect": "^3.6.5",
+    "serve-static": "^1.13.2"
+  }
+}
