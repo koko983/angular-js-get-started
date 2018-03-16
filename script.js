@@ -2,18 +2,31 @@
   var app = angular.module("githubViewer", []);
 
   var controllerCallBack = function ($scope, $http) {
+    $scope.sortOrder = "-stargazers_count"
+    $scope.username = "angular";
+    $scope.title = "GitHub Viewer";
+
+    var onReposComplete = function(response){
+      $scope.error = null;
+      $scope.repos = response.data;
+    };
+
     var onUserComplete = function (response) {
+      $scope.error = null;
       $scope.user = response.data;
+      $http.get(response.data.repos_url)
+        .then(onReposComplete, onError);
     };
+
     var onError = function (reason) {
-      $scope.error = "Could not fetch the user";
+      $scope.error = "Could not fetch data";
     };
 
-    $http.get("https://api.github.com/users/robconery")
-      .then(onUserComplete, onError);
-
-    $scope.message = "Hello, Angular!";
+    $scope.search = function (username) {
+      $http.get("https://api.github.com/users/" + username)
+        .then(onUserComplete, onError);
+    }
   };
 
-  app.controller("MainController", controllerCallBack);
+  app.controller("MainController", ["$scope", "$http", controllerCallBack]);
 }());

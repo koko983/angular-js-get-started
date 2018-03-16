@@ -8,25 +8,18 @@
 </head>
 
 <body ng-controller="MainController">
-  <h1>{{message}}</h1>
+  <h1>{{title}}</h1>
 
-  <div>
+  <div ng-show="error">
     {{ error }}
   </div>
 
-  <div>
-    <div>
-      Name: {{user.name}}
-    </div>
+  <form ng-submit="search(username)">
+    <input type="text" placeholder="Username to find" ng-model="username" required>
+    <input type="submit" value="Search">
+  </form>
 
-    <div>
-      Location: {{user.location}}
-    </div>
-
-    <div>
-      <img ng-src="{{user.avatar_url}}" title="{{user.name}}">
-    </div>
-  </div>
+  <div ng-include="'userdetails.html'" ng-show="user"></div>
 </body>
 
 </html>
